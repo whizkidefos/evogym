@@ -15,6 +15,6 @@ export interface IBenefitType {
 
 export interface IClassType {
     name: string;
-    description: string;
+    description?: string;
     image: string;
 }
