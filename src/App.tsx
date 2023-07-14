@@ -1,32 +1,33 @@
 import { useEffect, useState } from "react";
 import Navbar from "@/scenes/Navbar";
 import { SelectedPage } from "@/shared/types";
-import Home from "./scenes/Home";
+import Home from "@/scenes/Home";
+import Benefits from "@/scenes/Benefits";
+import Footer from "./scenes/Footer";
 
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(SelectedPage.Home);
   const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleScroll = () => {
       if (window.scrollY === 0) {
         setIsTopOfPage(true);
         setSelectedPage(SelectedPage.Home);
       }
-      else {
-        setIsTopOfPage(false);
-      }
-
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
+      if (window.scrollY !== 0) setIsTopOfPage(false);
     }
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <main className='app bg-gray-20'>
       <Navbar selectedPage={selectedPage} setSelectedPage={setSelectedPage} isTopOfPage={isTopOfPage} />
       <Home setSelectedPage={setSelectedPage} />
+      <Benefits setSelectedPage={setSelectedPage} />
+
+      <Footer />
     </main>
   )
 }
